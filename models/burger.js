@@ -6,12 +6,12 @@ const burger = {
             cb(res);
         });
     },
-    create: function(cb) {
-        orm.insertOne('burgers', burger, function(res) {
+    create: function(burgerName, cb) {
+        orm.insertOne('burgers', burgerName, function(res) {
             cb(res);
         });
     },
-    update: function(cb) {
+    update: function(colID, cb) {
         orm.updateOne('burgers', colID, function(res) {
             cb(res);
         });
