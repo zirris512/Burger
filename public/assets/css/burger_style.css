@@ -1,0 +1,13 @@
+.burger-col {
+    background: lightcyan;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: black;
+}
+
+.devour-col {
+    background: darkcyan;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: black;
+}
