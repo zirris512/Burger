@@ -1,5 +1,13 @@
 const pg = require("pg");
 
-const pool = new pg.Pool();
+const connectionString = process.env.CONNECT;
+
+const pool = new pg.Pool(
+    connectionString
+        ? {
+              connectionString,
+          }
+        : {}
+);
 
 module.exports = pool;
