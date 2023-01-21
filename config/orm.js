@@ -1,27 +1,48 @@
-const connection = require('./connection');
+const pool = require("./connection");
 
 const orm = {
-    selectAll: function(table, cb) {
-        let queryString = 'SELECT * FROM ??';
-        connection.query(queryString, table, function(err, result) {
+    selectAll(table, cb) {
+        let queryString = `SELECT * FROM ${table}`;
+        pool.connect((err, client, done) => {
             if (err) throw err;
-            cb(result);
+
+            client.query(queryString, function (err, result) {
+                done();
+
+                if (err) console.error(err.stack);
+
+                cb(result.rows);
+            });
         });
     },
-    insertOne: function(table, burger, cb) {
-        let queryString = 'INSERT INTO ??(burger_name,devoured) VALUES(?,?)';
-        connection.query(queryString,[table, burger, 0], function(err, result) {
-            if(err) throw err;
-            cb(result);
+    insertOne(table, burger, cb) {
+        let queryString = `INSERT INTO ${table} (burger_name,devoured) VALUES($1, $2)`;
+        pool.connect((err, client, done) => {
+            if (err) throw err;
+
+            client.query(queryString, [burger, 0], function (err, result) {
+                done();
+
+                if (err) console.error(err.stack);
+
+                cb(result.rows);
+            });
         });
     },
-    updateOne: function(table, queryID, cb) {
-        let queryString = 'UPDATE ?? SET devoured = ? WHERE id = ?';
-        connection.query(queryString, [table, 1, queryID], function(err, result) {
-            if(err) throw err;
-            cb(result);
+    updateOne(table, queryID, cb) {
+        let queryString = `UPDATE ${table} SET devoured = $1 WHERE id = $2`;
+        pool.connect((err, client, done) => {
+            if (err) throw err;
+
+            client.query(queryString, [1, queryID], function (err, result) {
+                done();
+
+                if (err) console.error(err.stack);
+
+                cb(result.rows);
+            });
         });
-    }
+    },
 };
 
 module.exports = orm;
