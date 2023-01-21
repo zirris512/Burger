@@ -8,7 +8,7 @@ A small project where the user could add items to a list. Then, remove and add t
 * Javascript
 * JQuery
 * Bootstrap
-* MySQL
+* PostgreSQL
 * Handlebars
 
 ## Links
